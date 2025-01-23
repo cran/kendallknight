@@ -22,14 +22,39 @@ Following the example from
 [Real Statistics Using Excel](https://real-statistics.com/correlation/kendalls-tau-correlation/kendalls-correlation-testing-with-ties/),
 consider the following data for life expectancy in years and cigarettes per day:
 
-```{r}
+```r
 cigarettes
+```
+
+```r
+> cigarettes
+   life_expectancy cigarettes_per_day
+1               78                  4
+2               78                 23
+3               60                 25
+4               53                 48
+5               85                 17
+6               84                  8
+7               73                  4
+8               78                 26
+9               78                 23
+10              75                 19
+11              65                 24
+12              72                 35
+13              58                 29
+14              92                  4
+15              65                 14
 ```
 
 The Kendall's correlation coefficient is computed as follows:
 
-```{r}
+```r
 kendall_cor(cigarettes$life_expectancy, cigarettes$cigarettes_per_day)
+```
+
+```r
+> kendall_cor(cigarettes$life_expectancy, cigarettes$cigarettes_per_day)
+[1] -0.4925183
 ```
 
 The obtained value reveals there is a negative correlation between life
@@ -39,13 +64,30 @@ null hypothesis that the correlation is zero.
 It is possible to test the hypothesis $H_0:\: \tau = 0$ versus $H_1:\: \tau \neq 0$
 by using a two-tailed test with following code:
 
-```{r}
+```r
 # two.sided is the default argument
 kendall_cor_test(
   cigarettes$life_expectancy,
   cigarettes$cigarettes_per_day,
   alternative = "two.sided"
 )
+```
+
+```r
+> # two.sided is the default argument
+> kendall_cor_test(
++   cigarettes$life_expectancy,
++   cigarettes$cigarettes_per_day,
++   alternative = "two.sided"
++ )
+$statistic
+[1] -0.4925183
+
+$p_value
+[1] 0.01140992
+
+$alternative
+[1] "alternative hypothesis: true tau is not equal to 0"
 ```
 
 Based on the obtained p-value and a significance level of 0.05, the null
@@ -55,12 +97,23 @@ correlation is not zero.
 It is also possible to test the hypothesis $H_0:\: \tau = 0$ versus
 $H_1:\: \tau < 0$ by using a one-tailed test with following code:
 
-```{r}
+```r
 kendall_cor_test(
   cigarettes$life_expectancy,
   cigarettes$cigarettes_per_day,
   alternative = "less"
 )
+```
+
+```
+$statistic
+[1] -0.4925183
+
+$p_value
+[1] 0.005704958
+
+$alternative
+[1] "alternative hypothesis: true tau is less than 0"
 ```
 
 Based on the obtained p-value and a significance level of 0.05, the null
@@ -70,12 +123,28 @@ correlation is negative.
 It is also possible to test the hypothesis $H_0:\: \tau = 0$ versus
 $H_1:\: \tau > 0$ by using a one-tailed test with following code:
 
-```{r}
+```r
 kendall_cor_test(
   cigarettes$life_expectancy,
   cigarettes$cigarettes_per_day,
   alternative = "greater"
 )
+```
+
+```r
+> kendall_cor_test(
++   cigarettes$life_expectancy,
++   cigarettes$cigarettes_per_day,
++   alternative = "greater"
++ )
+$statistic
+[1] -0.4925183
+
+$p_value
+[1] 0.995865
+
+$alternative
+[1] "alternative hypothesis: true tau is greater than 0"
 ```
 
 Based on the obtained p-value and a significance level of 0.05, the null

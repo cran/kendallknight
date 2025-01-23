@@ -3,9 +3,11 @@
 // Data)
 // Filzmoser, Fritz, and Kalcher 2023 (pcaPP package)
 
-// note: the len < 2 conditions are commented out because the R function checks
+// note: the len < 2 conditions are not included because the R function checks
 // for this condition before calling the C++ functions
 
+#include <algorithm>
+#include <cmath>
 #include <cpp11.hpp>
 #include <numeric>
 #include <vector>
@@ -21,10 +23,6 @@
 using namespace cpp11;
 
 uint64_t insertion_sort_(double *arr, size_t len) {
-  // if (len < 2) {
-  //   return 0;
-  // }
-
   size_t maxJ = len - 1, i;
   uint64_t swapCount = 0;
 
@@ -79,10 +77,6 @@ static uint64_t merge_(double *from, double *to, size_t middle, size_t len) {
 }
 
 uint64_t merge_sort_(double *x, double *buf, size_t len) {
-  // if (len < 2) {
-  //   return 0;
-  // }
-
   if (len < 10) {
     return insertion_sort_(x, len);
   }
@@ -96,6 +90,26 @@ uint64_t merge_sort_(double *x, double *buf, size_t len) {
 
   memcpy(x, buf, len * sizeof(double));
   return swaps;
+}
+
+static uint64_t ties_(double *data, size_t len) { /* Assumes data is sorted.*/
+  uint64_t Ms = 0, tieCount = 0;
+  size_t i;
+
+  for (i = 1; i < len; i++) {
+    if (data[i] == data[i - 1]) {
+      tieCount++;
+    } else if (tieCount) {
+      Ms += (tieCount * (tieCount + 1)) / 2;
+      tieCount++;
+      tieCount = 0;
+    }
+  }
+  if (tieCount) {
+    Ms += (tieCount * (tieCount + 1)) / 2;
+    tieCount++;
+  }
+  return Ms;
 }
 
 [[cpp11::register]] double kendall_cor_(const doubles &x, const doubles &y) {
@@ -128,30 +142,24 @@ uint64_t merge_sort_(double *x, double *buf, size_t len) {
     if (arr1[i] == arr1[i - 1]) {
       tieCount++;
     } else if (tieCount > 0) {
+      std::sort(arr2.begin() + i - tieCount - 1, arr2.begin() + i);
       m1 += tieCount * (tieCount + 1) / 2;
+      s += ties_(arr2.data() + i - tieCount - 1, tieCount + 1);
+      tieCount++;
       tieCount = 0;
     }
   }
   if (tieCount > 0) {
+    std::sort(arr2.begin() + len - tieCount - 1, arr2.end());
     m1 += tieCount * (tieCount + 1) / 2;
+    s += ties_(arr2.data() + len - tieCount - 1, tieCount + 1);
+    tieCount++;
   }
 
   swapCount = merge_sort_(arr2.data(), buf.data(), len);
 
   // Compute m2
-  m2 = 0;
-  tieCount = 0;
-  for (size_t i = 1; i < len; i++) {
-    if (arr2[i] == arr2[i - 1]) {
-      tieCount++;
-    } else if (tieCount) {
-      m2 += (tieCount * (tieCount + 1)) / 2;
-      tieCount = 0;
-    }
-  }
-  if (tieCount) {
-    m2 += (tieCount * (tieCount + 1)) / 2;
-  }
+  m2 = ties_(arr2.data(), len);
 
   // Adjust for ties
   s -= (m1 + m2) + 2 * swapCount;
@@ -172,7 +180,7 @@ double ckendall_(int k, int n, std::vector<std::vector<double>> &w) {
 #ifdef _OPENMP
 #pragma omp parallel for reduction(+ : s)
 #endif
-      for (int i = 0; i <= u; i++) {
+      for (int i = 0; i < n; i++) {
         s += ckendall_(k - i, n - 1, w);
       }
       w[n][k] = s;
