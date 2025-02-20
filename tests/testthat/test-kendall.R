@@ -18,8 +18,8 @@ test_that("same result as base R, no NAs", {
 
   k1 <- kendall_cor_test(x, y, alternative = "two.sided")
   k2 <- cor.test(x, y, method = "kendall", alternative = "two.sided")
-  expect_equal(k1$statistic, unname(k2$estimate))
-  expect_equal(k1$p_value, k2$p.value)
+  expect_equal(k1$statistic, k2$estimate)
+  expect_equal(k1$p.value, k2$p.value)
 
   x <- 1:3
   y <- 3:1
@@ -37,20 +37,20 @@ test_that("same result as base R, no NAs", {
 
   k1 <- kendall_cor_test(x, y, alternative = "two.sided")
   k2 <- suppressWarnings(cor.test(x, y, method = "kendall", alternative = "two.sided"))
-  expect_equal(k1$statistic, unname(k2$estimate))
-  expect_lt(k1$p_value, 0.05)
+  expect_equal(k1$statistic, k2$estimate)
+  expect_lt(k1$p.value, 0.05)
   expect_lt(k2$p.value, 0.05)
 
   k1 <- kendall_cor_test(x, y, alternative = "greater")
   k2 <- suppressWarnings(cor.test(x, y, method = "kendall", alternative = "greater"))
-  expect_equal(k1$statistic, unname(k2$estimate))
-  expect_gt(k1$p_value, 0.05)
+  expect_equal(k1$statistic, k2$estimate)
+  expect_gt(k1$p.value, 0.05)
   expect_gt(k2$p.value, 0.05)
 
   k1 <- kendall_cor_test(x, y, alternative = "less")
   k2 <- suppressWarnings(cor.test(x, y, method = "kendall", alternative = "less"))
-  expect_equal(k1$statistic, unname(k2$estimate))
-  expect_lt(k1$p_value, 0.05)
+  expect_equal(k1$statistic, k2$estimate)
+  expect_lt(k1$p.value, 0.05)
   expect_lt(k2$p.value, 0.05)
 })
 
@@ -211,7 +211,7 @@ test_that("inference with ties gives similar p-values", {
 
   k1 <- kendall_cor_test(x, y, alternative = "two.sided")
   k2 <- suppressWarnings(cor.test(x, y, method = "kendall", alternative = "two.sided"))
-  k3 <- k1$p_value / k2$p.value
+  k3 <- k1$p.value / k2$p.value
 
   expect_lt(abs(k3 - 1), 0.05)
 })
