@@ -7,30 +7,30 @@ knitr::opts_chunk$set(
 library(kendallknight)
 
 ## -----------------------------------------------------------------------------
-cigarettes
+arcade
 
 ## -----------------------------------------------------------------------------
-kendall_cor(cigarettes$life_expectancy, cigarettes$cigarettes_per_day)
+kendall_cor(arcade$doctorates, arcade$revenue)
 
 ## -----------------------------------------------------------------------------
 # two.sided is the default argument
 kendall_cor_test(
-  cigarettes$life_expectancy,
-  cigarettes$cigarettes_per_day,
+  arcade$doctorates,
+  arcade$revenue,
   alternative = "two.sided"
 )
 
 ## -----------------------------------------------------------------------------
 kendall_cor_test(
-  cigarettes$life_expectancy,
-  cigarettes$cigarettes_per_day,
+  arcade$doctorates,
+  arcade$revenue,
   alternative = "less"
 )
 
 ## -----------------------------------------------------------------------------
 kendall_cor_test(
-  cigarettes$life_expectancy,
-  cigarettes$cigarettes_per_day,
+  arcade$doctorates,
+  arcade$revenue,
   alternative = "greater"
 )
 

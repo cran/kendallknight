@@ -24,6 +24,7 @@ Other contributors:
 \itemize{
   \item Loader Catherine (original stirlerr implementations in C (2000)) [contributor]
   \item Ross Ihaka (original chebyshev_eval, gammafn and lgammacor implementations in C (1998)) [contributor]
+  \item  Statistics Canada (manufactured goods dataset) [data contributor]
 }
 
 }
