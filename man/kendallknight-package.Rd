@@ -6,7 +6,7 @@
 \alias{kendallknight-package}
 \title{kendallknight: Efficient Implementation of Kendall's Correlation Coefficient Computation}
 \description{
-The computational complexity of the implemented algorithm for Kendall's correlation is O(n log(n)), which is faster than the base R implementation with a computational complexity of O(n^2). For small vectors (i.e., less than 100 observations), the time difference is negligible. However, for larger vectors, the speed difference can be substantial and the numerical difference is minimal. The references are Knight (1966) \doi{10.2307/2282833}, Abrevaya (1999) \doi{10.1016/S0165-1765(98)00255-9}, Christensen (2005) \doi{10.1007/BF02736122} and Emara (2024) \url{https://learningcpp.org/}. This implementation is described in Vargas Sepulveda (2024) \doi{10.48550/arXiv.2408.09618}.
+The computational complexity of the implemented algorithm for Kendall's correlation is O(n log(n)), which is faster than the base R implementation with a computational complexity of O(n^2). For small vectors (i.e., less than 100 observations), the time difference is negligible. However, for larger vectors, the speed difference can be substantial and the numerical difference is minimal. The references are Knight (1966) \doi{10.2307/2282833}, Abrevaya (1999) \doi{10.1016/S0165-1765(98)00255-9}, Christensen (2005) \doi{10.1007/BF02736122} and Emara (2024) \url{https://learningcpp.org/}. This implementation is described in Vargas Sepulveda (2025) \doi{10.1371/journal.pone.0326090}.
 }
 \seealso{
 Useful links:
@@ -24,7 +24,6 @@ Other contributors:
 \itemize{
   \item Loader Catherine (original stirlerr implementations in C (2000)) [contributor]
   \item Ross Ihaka (original chebyshev_eval, gammafn and lgammacor implementations in C (1998)) [contributor]
-  \item  Statistics Canada (manufactured goods dataset) [data contributor]
 }
 
 }
