@@ -2,7 +2,7 @@ Package: kendallknight
 Type: Package
 Title: Efficient Implementation of Kendall's Correlation Coefficient
         Computation
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person(
         given = "Mauricio",
@@ -42,15 +42,13 @@ License: Apache License (>= 2)
 BugReports: https://github.com/pachadotdev/kendallknight/issues
 URL: https://pacha.dev/kendallknight/,
         https://github.com/pachadotdev/kendallknight
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Encoding: UTF-8
 NeedsCompilation: yes
-LinkingTo: cpp11
-VignetteBuilder: knitr
+LinkingTo: cpp4r
 Config/testthat/edition: 3
 Language: en-US
-LazyData: true
-Packaged: 2025-08-30 19:23:08 UTC; pacha
+Packaged: 2025-12-10 19:30:03 UTC; pacha
 Author: Mauricio Vargas Sepulveda [aut, cre] (ORCID:
     <https://orcid.org/0000-0003-1017-7574>),
   Loader Catherine [ctb] (original stirlerr implementations in C (2000)),
@@ -58,4 +56,4 @@ Author: Mauricio Vargas Sepulveda [aut, cre] (ORCID:
     implementations in C (1998))
 Maintainer: Mauricio Vargas Sepulveda <m.vargas.sepulveda@gmail.com>
 Repository: CRAN
-Date/Publication: 2025-08-31 14:20:02 UTC
+Date/Publication: 2025-12-11 06:10:20 UTC

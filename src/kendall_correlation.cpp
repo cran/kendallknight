@@ -8,7 +8,7 @@
 
 #include <algorithm>
 #include <cmath>
-#include <cpp11.hpp>
+#include <cpp4r.hpp>
 #include <numeric>
 #include <vector>
 
@@ -20,7 +20,7 @@
 #define M_LN_SQRT_2PI 0.9189385332046727
 #endif
 
-using namespace cpp11;
+using namespace cpp4r;
 
 uint64_t insertion_sort_(double *arr, size_t len) {
   size_t maxJ = len - 1, i;
@@ -112,7 +112,7 @@ static uint64_t ties_(double *data, size_t len) { /* Assumes data is sorted.*/
   return Ms;
 }
 
-[[cpp11::register]] double kendall_cor_(const doubles &x, const doubles &y) {
+[[cpp4r::register]] double kendall_cor_(const doubles &x, const doubles &y) {
   size_t len = x.size();
   std::vector<double> arr1(len), arr2(len);
   std::vector<double> buf(len);
@@ -436,7 +436,7 @@ double gammafn_(double x) {
   }
 }
 
-[[cpp11::register]] doubles pkendall_(doubles Q, int n) {
+[[cpp4r::register]] doubles pkendall_(doubles Q, int n) {
   int len = Q.size();
   writable::doubles P(len);
   std::vector<std::vector<double>> w(
